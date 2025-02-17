@@ -186,6 +186,8 @@ function win() {
   let messege = "";
   if (yourSum > 21) {
     messege = "You Lose!";
+  } else if (yourSum == 21) {
+    messege = "You Win, BLACKJACK!!!";
   } else if (dealerSum > 21) {
     messege = "You Win!";
   } else if (dealerSum == yourSum) {
