@@ -91,19 +91,9 @@ function startGame() {
     draw("you");
   }
 
-  document.getElementById("hit-btn").addEventListener("click", () => {
-    if (!canHit) {
-      return;
-    } else if (canHit) {
-      draw("you");
-    }
+  const hitBtn = document.getElementById("hit-btn");
 
-    if (reduceAce(yourSum, yourAceCount) > 21) {
-      canHit = false;
-      //call win for the dealer
-      win();
-    }
-  });
+  hitBtn.addEventListener("click", hit);
 
   document.getElementById("stay-btn").addEventListener("click", () => {
     win();
@@ -215,6 +205,10 @@ function reset() {
   yourAceCount = 0;
   yourSum = 0;
 
+  document.getElementById("dealer-sum").innerText = "";
+
+  document.getElementById("your-sum").innerText = "";
+
   const dealerCards = document.getElementById("dealer-cards");
 
   let children = dealerCards.querySelectorAll("*");
@@ -225,12 +219,26 @@ function reset() {
 
   const yourCards = document.getElementById("your-cards");
 
-  children = yourCards.querySelectorAll("*");
+  let playerChildren = yourCards.querySelectorAll("*");
 
-  children.forEach((element) => {
+  playerChildren.forEach((element) => {
     element.remove();
   });
 
   const results = document.getElementById("results");
   results.innerText = "";
+}
+
+function hit() {
+  if (!canHit) {
+    return;
+  } else if (canHit) {
+    draw("you");
+  }
+
+  if (reduceAce(yourSum, yourAceCount) > 21) {
+    canHit = false;
+    //call win for the dealer
+    win();
+  }
 }
